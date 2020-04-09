@@ -3,6 +3,9 @@ from cv2 import cv2
 
 cap = cv2.VideoCapture(0)
 
+# img = cv2.imread('watch.jpg', cv2.IMREAD_COLOR)
+
+
 while(True):
     ret, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
