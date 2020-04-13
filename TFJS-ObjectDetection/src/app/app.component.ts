@@ -70,6 +70,15 @@ webcam_init()
     ctx.textBaseline = "top";
     ctx.drawImage(this.video,0, 0,300,300);
 
+    // Draws bounding boxes for each item first
+
+    /*
+      TODO: The text for the prediction labels are under prediction.class. We
+      need to take that text, translate it, and then save it as prediction.translated.
+      Then, during the second for loop, the translated text will be displayed as well
+      as the original text.
+    */
+   
     predictions.forEach(prediction => {
       console.log(prediction)
       const x = prediction.bbox[0];
@@ -87,6 +96,7 @@ webcam_init()
       ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
     });
 
+    // then it fills in text for each box
     predictions.forEach(prediction => {
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
