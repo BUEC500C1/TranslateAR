@@ -11,4 +11,4 @@ class Camera(BaseCamera):
     def frames():
         while True:
             time.sleep(1)
-            yield Camera.imgs[int(time.time()) % 3]
+            yield Camera.imgs[int(time.time()) % 3]       
