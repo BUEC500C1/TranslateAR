@@ -1,3 +1,11 @@
 
 models/.DS_Store
 .vscode/settings.json
+*.pyc
+.DS_Store
+node_modules
+.DS_Store
+webcam/.DS_Store
+
+TranslateAR-ML/angular-cli/
+.DS_Store
