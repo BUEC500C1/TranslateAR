@@ -27,6 +27,12 @@ public async predictWithCocoModel(){
   console.log('model loaded');
 }
 
+translate_text(text){
+  // "translate" the text
+
+  return "translated " + text
+}
+
 webcam_init()
   {  
   this.video = <HTMLVideoElement> document.getElementById("vid");
@@ -81,6 +87,7 @@ webcam_init()
    
     predictions.forEach(prediction => {
       console.log(prediction)
+      prediction.translated = this.translate_text(prediction.class)
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
       const width = prediction.bbox[2];
@@ -91,7 +98,7 @@ webcam_init()
       ctx.strokeRect(x, y, width, height);
       // Draw the label background.
       ctx.fillStyle = "#00FFFF";
-      const textWidth = ctx.measureText(prediction.class).width;
+      const textWidth = Math.max(ctx.measureText(prediction.class).width, ctx.measureText(prediction.translated).width);
       const textHeight = parseInt(font, 10); // base 10
       ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
     });
@@ -102,7 +109,9 @@ webcam_init()
       const y = prediction.bbox[1];
       // Draw the text last to ensure it's on top.
       ctx.fillStyle = "#000000";
+      const textHeight = parseInt(font, 10); // base 10
       ctx.fillText(prediction.class, x, y);
+      ctx.fillText(prediction.translated, x, y + textHeight);
     });
   };
 
