@@ -72,6 +72,7 @@ webcam_init()
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     // Font options.
     const font = "16px sans-serif";
+    const transFont = "22px sans-serif";
     ctx.font = font;
     ctx.textBaseline = "top";
     ctx.drawImage(this.video,0, 0,840,650);
@@ -98,9 +99,18 @@ webcam_init()
       ctx.strokeRect(x, y, width, height);
       // Draw the label background.
       ctx.fillStyle = "#00FFFF";
-      const textWidth = Math.max(ctx.measureText(prediction.class).width, ctx.measureText(prediction.translated).width);
-      const textHeight = parseInt(font, 10); // base 10
-      ctx.fillRect(x, y, textWidth + 4, 2 * textHeight + 4);
+
+      var originalTextWidth = ctx.measureText(prediction.class).width;
+      ctx.font = transFont;
+      var translatedTextWidth = ctx.measureText(prediction.translated).width;
+      const textWidth = Math.max(originalTextWidth, translatedTextWidth);
+
+      var translatedTextHeight = parseInt(font, 10); // base 10
+      ctx.font = font;
+      var originalTextHeight = parseInt(font, 10); // base 10
+      const textHeight = originalTextHeight + translatedTextHeight;
+
+      ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
     });
 
     // then it fills in text for each box
@@ -111,6 +121,7 @@ webcam_init()
       ctx.fillStyle = "#000000";
       const textHeight = parseInt(font, 10); // base 10
       ctx.fillText(prediction.class, x, y);
+      ctx.font = transFont;
       ctx.fillText(prediction.translated, x, y + textHeight);
     });
   };
