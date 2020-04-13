@@ -71,6 +71,7 @@ webcam_init()
     ctx.drawImage(this.video,0, 0,300,300);
 
     predictions.forEach(prediction => {
+      console.log(prediction)
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
       const width = prediction.bbox[2];
