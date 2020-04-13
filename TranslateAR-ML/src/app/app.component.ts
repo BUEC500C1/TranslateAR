@@ -100,7 +100,7 @@ webcam_init()
       ctx.fillStyle = "#00FFFF";
       const textWidth = Math.max(ctx.measureText(prediction.class).width, ctx.measureText(prediction.translated).width);
       const textHeight = parseInt(font, 10); // base 10
-      ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
+      ctx.fillRect(x, y, textWidth + 4, 2 * textHeight + 4);
     });
 
     // then it fills in text for each box
