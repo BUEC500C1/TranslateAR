@@ -78,36 +78,35 @@ webcam_init()
     ctx.drawImage(this.video,0, 0,840,650);
 
     // Draws bounding boxes for each item first
-
-    /*
-      TODO: The text for the prediction labels are under prediction.class. We
-      need to take that text, translate it, and then save it as prediction.translated.
-      Then, during the second for loop, the translated text will be displayed as well
-      as the original text.
-    */
-   
     predictions.forEach(prediction => {
-      console.log(prediction)
+      // adds translated field to object
       prediction.translated = this.translate_text(prediction.class)
+
+      // Draws the Bounding Box
+      // Gets coordinates
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
       const width = prediction.bbox[2];
       const height = prediction.bbox[3];
-      // Draw the bounding box.
+      // Draws the box
       ctx.strokeStyle = "#00FFFF";
       ctx.lineWidth = 2;
       ctx.strokeRect(x, y, width, height);
-      // Draw the label background.
+
+
+      // Draw the Label Background.
       ctx.fillStyle = "#00FFFF";
 
+      // determines width of label background by checking width of both texts
       var originalTextWidth = ctx.measureText(prediction.class).width;
       ctx.font = transFont;
       var translatedTextWidth = ctx.measureText(prediction.translated).width;
       const textWidth = Math.max(originalTextWidth, translatedTextWidth);
 
+      // determines height of label by adding heights of both texts
       var translatedTextHeight = parseInt(font, 10); // base 10
       ctx.font = font;
-      var originalTextHeight = parseInt(font, 10); // base 10
+      var originalTextHeight = parseInt(font, 10);
       const textHeight = originalTextHeight + translatedTextHeight;
 
       ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
@@ -119,8 +118,12 @@ webcam_init()
       const y = prediction.bbox[1];
       // Draw the text last to ensure it's on top.
       ctx.fillStyle = "#000000";
-      const textHeight = parseInt(font, 10); // base 10
+
+      // Draws original text in small font
+      const textHeight = parseInt(font, 10);
       ctx.fillText(prediction.class, x, y);
+
+      // Draws translated text in larger font
       ctx.font = transFont;
       ctx.fillText(prediction.translated, x, y + textHeight);
     });
