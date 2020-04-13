@@ -27,11 +27,25 @@ public async predictWithCocoModel(){
   console.log('model loaded');
 }
 
+/*
+  -----|--------------------------------------------|-----
+       |                                            |
+  -----|----- LIZZY: INSERT YOUR FUNCTION HERE -----|-----
+       |                                            |
+  -----V--------------------------------------------V-----
+*/
 translate_text(text){
   // "translate" the text
 
   return "translated " + text
 }
+/*
+  -----^--------------------------------------------^-----
+       |                                            |
+  -----|----- LIZZY: INSERT YOUR FUNCTION HERE -----|-----
+       |                                            |
+  -----|--------------------------------------------|-----
+*/
 
 webcam_init()
   {  
