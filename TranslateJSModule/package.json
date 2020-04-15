@@ -1,0 +1,11 @@
+{
+  "name": "translatejsmodule",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "google-translate": "3.0.0"
+  }
+}
