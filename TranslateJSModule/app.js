@@ -1,10 +1,19 @@
 
-var key = "AIzaSyAwLa-BWWVMdeR29C5gEZ3iCG5T-wswd70";
+const dotenv = require('dotenv');
+
+
+const key = dotenv.config().parsed.API_KEY;;
+
 var googleTranslate = require('google-translate')(key);
 
 function translateText(targetLanguage, textToTranslate) {
     googleTranslate.translate(textToTranslate, targetLanguage, function(err, translation) {
-        console.log(translation.translatedText);
+        if (err){
+            console.log("There's a problem with API communication")
+        }
+        else{
+            console.log(translation.translatedText);
+        }
   });
 }
 
