@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 //import COCO-SSD model as cocoSSD
 import * as cocoSSD from '@tensorflow-models/coco-ssd';
 
+// import * as translate from "./translate"
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +15,6 @@ export class AppComponent implements OnInit
 {
   title = 'TF-ObjectDetection';
   private video: HTMLVideoElement;
-  
 
   ngOnInit()
   { 
@@ -27,25 +28,14 @@ public async predictWithCocoModel(){
   console.log('model loaded');
 }
 
-/*
-  -----|--------------------------------------------|-----
-       |                                            |
-  -----|----- LIZZY: INSERT YOUR FUNCTION HERE -----|-----
-       |                                            |
-  -----V--------------------------------------------V-----
-*/
 translate_text(text){
   // "translate" the text
 
+  // translate("es", "Hi, my name is Lizzy");
+  // console.log(typeof translate);
+
   return "translated " + text
 }
-/*
-  -----^--------------------------------------------^-----
-       |                                            |
-  -----|----- LIZZY: INSERT YOUR FUNCTION HERE -----|-----
-       |                                            |
-  -----|--------------------------------------------|-----
-*/
 
 webcam_init()
   {  
