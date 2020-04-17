@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry, tap } from 'rxjs/operators';
 
 //import COCO-SSD model as cocoSSD
 import * as cocoSSD from '@tensorflow-models/coco-ssd';
 
-// import * as translate from "./translate"
 
 @Component({
   selector: 'app-root',
@@ -16,8 +18,14 @@ export class AppComponent implements OnInit
   title = 'TF-ObjectDetection';
   private video: HTMLVideoElement;
 
+  constructor(private http: HttpClient) {}
+
   ngOnInit()
   { 
+    const proxy_url = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://translate-ar.herokuapp.com/getmsg/?name=LauraJoy";
+    this.http.get(proxy_url + url).
+      subscribe((data) => console.log(data))
     this.webcam_init();
     this.predictWithCocoModel();
   }
@@ -30,9 +38,11 @@ public async predictWithCocoModel(){
 
 translate_text(text){
   // "translate" the text
-
-  // translate("es", "Hi, my name is Lizzy");
-  // console.log(typeof translate);
+  const proxy_url = "https://cors-anywhere.herokuapp.com/";
+  const base_url = "https://translate-ar.herokuapp.com/getmsg/?name=";
+  const trans_text = "LauraJoy";
+  this.http.get(proxy_url + base_url + trans_text).
+    subscribe((data) => console.log(data))
 
   return "translated " + text
 }
