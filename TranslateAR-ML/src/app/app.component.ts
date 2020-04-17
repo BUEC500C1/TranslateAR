@@ -18,36 +18,42 @@ export class AppComponent implements OnInit
   title = 'TF-ObjectDetection';
   private video: HTMLVideoElement;
 
+  object_dict = {" " : " "};
+
   constructor(private http: HttpClient) {}
 
   ngOnInit()
   { 
-    const proxy_url = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://translate-ar.herokuapp.com/getmsg/?name=LauraJoy";
-    this.http.get(proxy_url + url).
-      subscribe((data) => console.log(data))
+    // clears object dictionary on startup
+    this.object_dict = {" " : " "};
     this.webcam_init();
     this.predictWithCocoModel();
   }
 
-public async predictWithCocoModel(){
-  const model = await cocoSSD.load('lite_mobilenet_v2');
-  this.detectFrame(this.video,model);
-  console.log('model loaded');
-}
+  add_translation(text, data) {
+    this.object_dict[text] = data.MESSAGE;
+  }
 
-translate_text(text){
-  // "translate" the text
-  const proxy_url = "https://cors-anywhere.herokuapp.com/";
-  const base_url = "https://translate-ar.herokuapp.com/getmsg/?name=";
-  const trans_text = "LauraJoy";
-  this.http.get(proxy_url + base_url + trans_text).
-    subscribe((data) => console.log(data))
+  public async predictWithCocoModel(){
+    const model = await cocoSSD.load('lite_mobilenet_v2');
+    this.detectFrame(this.video,model);
+    console.log('model loaded');
+  }
 
-  return "translated " + text
-}
+  translate_text(text){
+    const proxy_url = "https://cors-anywhere.herokuapp.com/";
+    const base_url = "https://translate-ar.herokuapp.com/getmsg/?name=";
 
-webcam_init()
+    this.http.get(proxy_url + base_url + text).
+      subscribe(
+        (data) => this.add_translation(text, data),
+        (err) => console.log(err)
+      )
+
+    return "";
+  }
+
+  webcam_init()
   {  
   this.video = <HTMLVideoElement> document.getElementById("vid");
   
@@ -93,8 +99,15 @@ webcam_init()
 
     // Draws bounding boxes for each item first
     predictions.forEach(prediction => {
+
       // adds translated field to object
-      prediction.translated = this.translate_text(prediction.class)
+      if (prediction.class in this.object_dict) {
+        // checks first for a cached translation if available
+        prediction.translated = this.object_dict[prediction.class];
+      } else {
+        // otherwise translates new phrase and adds to cache
+        prediction.translated = this.translate_text(prediction.class);
+      }
 
       // Draws the Bounding Box
       // Gets coordinates
