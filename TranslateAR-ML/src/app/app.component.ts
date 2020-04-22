@@ -40,10 +40,10 @@ export class AppComponent implements OnInit
     console.log('model loaded');
   }
 
-  translate_text(text){
+  translate_text(text, language){
     const proxy_url = "https://cors-anywhere.herokuapp.com/";
     const base_url = "https://translate-ar.herokuapp.com/translate?";
-    const language_param = "translateTo=spanish&textToTranslate=";
+    const language_param = "translateTo=" + language + "&textToTranslate=";
 
     this.http.get(proxy_url + base_url + language_param + text).
       subscribe(
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit
         prediction.translated = this.object_dict[prediction.class];
       } else {
         // otherwise translates new phrase and adds to cache
-        prediction.translated = this.translate_text(prediction.class);
+        prediction.translated = this.translate_text(prediction.class, "german");
       }
 
       // Draws the Bounding Box
