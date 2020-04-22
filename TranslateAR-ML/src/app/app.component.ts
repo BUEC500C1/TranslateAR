@@ -43,6 +43,7 @@ export class AppComponent implements OnInit
   }
 
   translate_text(text, language){
+    // proxy url is used to avoid CORS issues
     const proxy_url = "https://cors-anywhere.herokuapp.com/";
     const base_url = "https://translate-ar.herokuapp.com/translate?";
     const language_param = "translateTo=" + language + "&textToTranslate=";
@@ -100,7 +101,7 @@ export class AppComponent implements OnInit
     ctx.textBaseline = "top";
     ctx.drawImage(this.video,0, 0,840,650);
 
-    var language = "german";
+    var language = "hindi";
 
     // Draws bounding boxes for each item first
     predictions.forEach(prediction => {
