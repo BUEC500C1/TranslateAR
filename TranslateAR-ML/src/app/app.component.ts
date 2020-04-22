@@ -31,7 +31,7 @@ export class AppComponent implements OnInit
   }
 
   add_translation(text, data) {
-    this.object_dict[text] = data.MESSAGE;
+    this.object_dict[text] = data.translation;
   }
 
   public async predictWithCocoModel(){
@@ -42,9 +42,10 @@ export class AppComponent implements OnInit
 
   translate_text(text){
     const proxy_url = "https://cors-anywhere.herokuapp.com/";
-    const base_url = "https://translate-ar.herokuapp.com/getmsg/?name=";
+    const base_url = "https://translate-ar.herokuapp.com/translate?";
+    const language_param = "translateTo=spanish&textToTranslate=";
 
-    this.http.get(proxy_url + base_url + text).
+    this.http.get(proxy_url + base_url + language_param + text).
       subscribe(
         (data) => this.add_translation(text, data),
         (err) => console.log(err)
