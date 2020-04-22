@@ -18,20 +18,22 @@ export class AppComponent implements OnInit
   title = 'TF-ObjectDetection';
   private video: HTMLVideoElement;
 
-  object_dict = {" " : " "};
+  object_dict = {"" : ""};
 
   constructor(private http: HttpClient) {}
 
   ngOnInit()
   { 
     // clears object dictionary on startup
-    this.object_dict = {" " : " "};
+    this.object_dict = {"" : ""};
     this.webcam_init();
     this.predictWithCocoModel();
   }
 
-  add_translation(text, data) {
-    this.object_dict[text] = data.translation;
+  add_translation(text, data, language) {
+    var temp = Object();
+    temp[language] = data.translation;
+    this.object_dict[text] = temp;
   }
 
   public async predictWithCocoModel(){
@@ -47,7 +49,7 @@ export class AppComponent implements OnInit
 
     this.http.get(proxy_url + base_url + language_param + text).
       subscribe(
-        (data) => this.add_translation(text, data),
+        (data) => this.add_translation(text, data, language),
         (err) => console.log(err)
       )
 
@@ -98,16 +100,20 @@ export class AppComponent implements OnInit
     ctx.textBaseline = "top";
     ctx.drawImage(this.video,0, 0,840,650);
 
+    var language = "german";
+
     // Draws bounding boxes for each item first
     predictions.forEach(prediction => {
 
       // adds translated field to object
       if (prediction.class in this.object_dict) {
         // checks first for a cached translation if available
-        prediction.translated = this.object_dict[prediction.class];
+        if (language in this.object_dict[prediction.class]) {
+          prediction.translated = this.object_dict[prediction.class][language];
+        }
       } else {
         // otherwise translates new phrase and adds to cache
-        prediction.translated = this.translate_text(prediction.class, "german");
+        prediction.translated = this.translate_text(prediction.class, language);
       }
 
       // Draws the Bounding Box
