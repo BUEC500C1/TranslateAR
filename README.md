@@ -2,6 +2,8 @@
 
 By: Ruby, LJ, and Lizzy
 
+Deployed here: [Live URL](https://pure-eyrie-22820.herokuapp.com/)
+
 ###  Application Summary
 
 An Augmented Reality Language translation app. Users use their computer camera, and the app identifies the objects in the frame. The user can select any of the languages available with Google Translate. The application shows the English word and then the language translation beside it for all recognized objects. For example, if a user selects "French" and points their camera at a cup, the text that will appear is “cup” and “Coupe”. This could be used in situations where a user needs to know a word for an object in a room/wants to learn the object’s name in a different language.
@@ -25,10 +27,10 @@ A user opens the web application and their webcam footage appears on the site. T
 ### Running our application
 
 - Clone this github.
-- Go to the ```TranslateAR-ML``` directory.
-- run ```npm install```.
-- run ```ng serve```.
-- Go to ```localhost:4200``` in your web browser.
+- Go to the `TranslateAR-ML` directory.
+- run `npm install`.
+- run `ng serve`.
+- Go to `localhost:4200` in your web browser.
 - Start using our app!
 
 ### Web Architecture
