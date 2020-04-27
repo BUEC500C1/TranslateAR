@@ -22,6 +22,7 @@ A user opens the web application and their webcam footage appears on the site. T
 *Below are Screenshots of our application*
 
 <img src="/Images/cup.png" width="80%"/>
+<img src="/Images/phone.png" width="80%"/>
 
 
 ### Running our application
