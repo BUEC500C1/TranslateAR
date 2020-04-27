@@ -1,5 +1,5 @@
 <div style="text-align:center">
-  
+
   <h1>Let's Translate!</h1>
 
   <select (change)="selectChangeHandler($event)" name="demo" id="#">
@@ -110,15 +110,12 @@
     <option value=" Filipino "> Filipino </option>
     <option value=" Hebrew "> Hebrew </option>
   </select>
+    <p><span>You're translating from English to: </span><b>{{selectedLanguage}}</b></p>
 
   <br><br>
-  
+
   <video hidden id="vid" width="840" height="650"></video>
   <canvas id="canvas"></canvas>
-  
+
 
 </div>
-
-
-
- 
