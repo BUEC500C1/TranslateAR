@@ -25,8 +25,9 @@ A user opens the web application and their webcam footage appears on the site. T
 ### Running our application
 
 - Clone this github.
-- run ```npm install```
-- run ```ng serve```
+- Go to the ```TranslateAR-ML``` directory.
+- run ```npm install```.
+- run ```ng serve```.
 - Go to ```localhost:4200``` in your web browser.
 - Start using our app!
 
