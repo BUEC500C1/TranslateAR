@@ -2,7 +2,7 @@
   
   <h1>Let's Translate!</h1>
 
-  <select name="demo" id="#">
+  <select (change)="selectChangeHandler($event)" name="demo" id="#">
     <option value=" afrikaans "> afrikaans </option>
     <option value=" albanian "> albanian </option>
     <option value=" amharic "> amharic </option>
@@ -110,6 +110,7 @@
     <option value=" Filipino "> Filipino </option>
     <option value=" Hebrew "> Hebrew </option>
   </select>
+  <p><span>You selected: </span><b>{{selectedLanguage}}</b></p>
 
   <br>
   

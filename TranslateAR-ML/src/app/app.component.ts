@@ -36,6 +36,14 @@ export class AppComponent implements OnInit
     this.object_dict[text] = temp;
   }
 
+  selectedLanguage: string = '';
+
+  //event handler for the select element's change event
+  selectChangeHandler (event: any) {
+    //update the ui
+    this.selectedLanguage = event.target.value;
+  }
+
   public async predictWithCocoModel(){
     const model = await cocoSSD.load('lite_mobilenet_v2');
     this.detectFrame(this.video,model);
@@ -101,7 +109,8 @@ export class AppComponent implements OnInit
     ctx.textBaseline = "top";
     ctx.drawImage(this.video,0, 0,840,650);
 
-    var language = "hindi";
+    var language = (this.selectedLanguage).trim();
+    console.log("HEY LANGYAGE",language)
 
     // Draws bounding boxes for each item first
     predictions.forEach(prediction => {
@@ -111,6 +120,9 @@ export class AppComponent implements OnInit
         // checks first for a cached translation if available
         if (language in this.object_dict[prediction.class]) {
           prediction.translated = this.object_dict[prediction.class][language];
+        } else {
+          // otherwise translates new phrase and adds to cache
+          prediction.translated = this.translate_text(prediction.class, language);
         }
       } else {
         // otherwise translates new phrase and adds to cache
