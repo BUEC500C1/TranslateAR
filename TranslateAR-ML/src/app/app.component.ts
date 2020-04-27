@@ -110,22 +110,20 @@ export class AppComponent implements OnInit
     ctx.drawImage(this.video,0, 0,840,650);
 
     var language = (this.selectedLanguage).trim();
-    console.log("HEY LANGYAGE",language)
 
     // Draws bounding boxes for each item first
     predictions.forEach(prediction => {
+      prediction.translated = "";
 
-      // adds translated field to object
+      // checks first for a cached translation if available
       if (prediction.class in this.object_dict) {
-        // checks first for a cached translation if available
         if (language in this.object_dict[prediction.class]) {
           prediction.translated = this.object_dict[prediction.class][language];
-        } else {
-          // otherwise translates new phrase and adds to cache
-          prediction.translated = this.translate_text(prediction.class, language);
         }
-      } else {
-        // otherwise translates new phrase and adds to cache
+      }
+      
+      // otherwise translates new phrase and adds to cache
+      if (prediction.translated == "") {
         prediction.translated = this.translate_text(prediction.class, language);
       }
 
