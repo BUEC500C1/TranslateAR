@@ -37,3 +37,9 @@ A user opens the web application and their webcam footage appears on the site. T
 ### Web Architecture
 
 Angular, JS, HTML/CSS, Python for Google Translate API. Heroku for hosting.
+
+### Roles
+
+**Laura Joy Erb** => Integrated the translation code into an API. Combined the API call with the object detection algorithm. 
+**Elizabeth Slade** => Wrote our translation function. Set up the server for hosting both our web app and the translation api. 
+**Ruby Zaveri** => Set up webcam access and object detection libraries. Wront code for frontend drop-down menu and communication between front and backend. 
